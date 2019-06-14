@@ -12,5 +12,6 @@ Demo source: https://glitch.com/edit/#!/foxhole-tilemap-prototype
  - Cut into hexes by Kastow
  - Recompiled into world map by Blade
  - Cut into tiles by Derp using https://github.com/commenthol/gdal2tiles-leaflet
+ - Files compressed by Sethfire
 
 Map images are a property of Clapfoot Inc. and are used with their permission.
