@@ -1,5 +1,5 @@
 # Foxhole-Map-Tiles
-Map tiles for Foxhole interactive maps, version of June 14 2019.
+Map tiles for Foxhole interactive maps, version of June 18 2019.
 
 Link format: 
 https://raw.githubusercontent.com/Kastow/Foxhole-Map-Tiles/master/Tiles/{z}/{z}_{x}_{y}.png
