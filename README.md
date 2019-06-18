@@ -11,6 +11,7 @@ Demo source: https://glitch.com/edit/#!/foxhole-tilemap-prototype
  - Map created by Clapfoot Inc.
  - Cut into hexes by Kastow
  - Recompiled into world map by Blade
+ - Contrast changed by Sethfire
  - Cut into tiles by Derp using https://github.com/commenthol/gdal2tiles-leaflet
  - Files compressed by Sethfire
 
