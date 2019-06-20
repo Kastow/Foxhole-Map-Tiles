@@ -15,4 +15,6 @@ Demo source: https://glitch.com/edit/#!/foxhole-tilemap-prototype
  - Cut into tiles by https://github.com/NoUDerp/ using https://github.com/NoUDerp/Tiler
  - Files compressed by https://github.com/Sethfire
 
-Map images are a property of Clapfoot Inc. and are used with their permission.
+Now also contains icons that are used in Foxhole maps, created by Clapfoot Inc. and colored by https://github.com/BladeRikWr
+
+Map and icon images are a property of Clapfoot Inc. and are used with their permission.
