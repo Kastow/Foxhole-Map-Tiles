@@ -8,7 +8,7 @@ Demo: https://foxhole-tilemap-prototype.glitch.me/
 
 Demo source: https://glitch.com/edit/#!/foxhole-tilemap-prototype
 
- - Map created by Clapfoot Inc.
+ - Map created by Clapfoot Inc. https://github.com/clapfoot/
  - Cut into hexes by Kastow
  - Recompiled into world map by https://github.com/BladeRikWr
  - Contrast changed by https://github.com/Sethfire
