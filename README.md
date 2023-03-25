@@ -1,5 +1,5 @@
 # Foxhole-Map-Tiles
-Map tiles for Foxhole interactive maps, version 0.28 of September 2 2019.
+Map tiles for Foxhole interactive maps, version 1.51 from January 2023.
 
 Link format: 
 https://raw.githubusercontent.com/Kastow/Foxhole-Map-Tiles/master/Tiles/{z}/{z}_{x}_{y}.png
@@ -10,10 +10,8 @@ Demo source: https://glitch.com/edit/#!/foxhole-tilemap-prototype
 
  - Map created by Clapfoot Inc. https://github.com/clapfoot/
  - Cut into hexes by Kastow
- - Recompiled into world map by https://github.com/BladeRikWr
- - Contrast changed by https://github.com/Sethfire
  - Cut into tiles by https://github.com/NoUDerp/ using https://github.com/NoUDerp/Tiler
- - Files compressed by https://github.com/Sethfire
+ - Tiles created by Sentsu https://sentsu.itch.io/foxhole-better-map-mod
 
 Now also contains icons that are used in Foxhole maps, created by Clapfoot Inc. and colored by https://github.com/BladeRikWr
 
