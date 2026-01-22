@@ -1,0 +1,2 @@
+Tiles were generated from a world map,
+where each Hex was 1024px wide
