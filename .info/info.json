@@ -1,0 +1,217 @@
+{
+  "manifest_version": 1,
+  "generated_at": "2026-10-19T18:09:41Z",
+  "hash_algorithm": "sha256",
+  "hash": "21788d64b131bcd625093425c2bbc70b6644429c585dc7c965debed85db85f6f",
+  "size": 325700317,
+  "item_count": 21899,
+  "folders": {
+    "Fly Height Tiles": {
+      "hash": "aad4c0264a0fdd0a020cf351c4e4ad2125fd784d86f6a2d0a2dc21f6e2f6abb7",
+      "size": 14389504,
+      "item_count": 5461,
+      "detail_file": "info.fly.height.tiles.json",
+      "folders": {
+        "0": {
+          "hash": "84486664deaca9fcdcddce117151a358428a5602407ae9b861342c023feecec4",
+          "size": 26830,
+          "item_count": 1,
+          "folders": {}
+        },
+        "1": {
+          "hash": "d9f7049fa1b1f57d3e378911a4b7b00e019c07cd5b065138c31ba0b4eac7b3f5",
+          "size": 63308,
+          "item_count": 4,
+          "folders": {}
+        },
+        "2": {
+          "hash": "55d46b10bd2bb393063fed8bee089e1e247446e153e7847021ceb13de95eeae4",
+          "size": 152722,
+          "item_count": 16,
+          "folders": {}
+        },
+        "3": {
+          "hash": "ea105337ba1b3b07d28f3252f096ca1d1733d54e7e13861c97b70c8fd763a8f1",
+          "size": 410116,
+          "item_count": 64,
+          "folders": {}
+        },
+        "4": {
+          "hash": "a833f65bdf3b9e3c71ec695bb043594998fe22a75e02b20df7de45675b793ee4",
+          "size": 1175048,
+          "item_count": 256,
+          "folders": {}
+        },
+        "5": {
+          "hash": "966d37f5efd46ed2fb88cf92b88629ed8312a4c3e69197efc91861582b906c20",
+          "size": 3242266,
+          "item_count": 1024,
+          "folders": {}
+        },
+        "6": {
+          "hash": "0bdeacf1cdec168518d674c359a0667a4f87c0e59acf05cb5770cb2b3169d336",
+          "size": 9319214,
+          "item_count": 4096,
+          "folders": {}
+        }
+      }
+    },
+    "Map Icons": {
+      "hash": "97d69d552fa75c9cde7872bdefc4dbe76f839f131eb1431c491b2dd56b04d026",
+      "size": 1390391,
+      "item_count": 54,
+      "detail_file": "info.map.icons.json",
+      "folders": {}
+    },
+    "Sat Tiles": {
+      "hash": "fd26fb11bf0840520be11b69f9fa0c9c73285fe04b6cef77e28bc5c02af3aad0",
+      "size": 110643595,
+      "item_count": 5461,
+      "detail_file": "info.sat.tiles.json",
+      "folders": {
+        "0": {
+          "hash": "123e86c86a83e65b5c8e55cd550824cf9f1641d948f44d2438f16d9ac1e1703e",
+          "size": 66883,
+          "item_count": 1,
+          "folders": {}
+        },
+        "1": {
+          "hash": "4d047ffb39726cb0b184aa753db374c72f867f7c15a1f5d87b3febcf82e5d006",
+          "size": 227259,
+          "item_count": 4,
+          "folders": {}
+        },
+        "2": {
+          "hash": "d923862c0422165a129cd997f3acf1dd93b28c154d980c65cfa4f693f188df92",
+          "size": 773714,
+          "item_count": 16,
+          "folders": {}
+        },
+        "3": {
+          "hash": "63f0ffb9c4f6f453ccac3795ed7712059e95eec4e06ffafab50219f93c90e9c1",
+          "size": 2620027,
+          "item_count": 64,
+          "folders": {}
+        },
+        "4": {
+          "hash": "fb4f307791e6f7255da06eba2f2171324205b60fe03042e75fc8e7b6a252a3ef",
+          "size": 8480884,
+          "item_count": 256,
+          "folders": {}
+        },
+        "5": {
+          "hash": "48f7015651f6a92b601409c841c6454e84a210faac3d58a73b1d6c83b75f1d4a",
+          "size": 25808029,
+          "item_count": 1024,
+          "folders": {}
+        },
+        "6": {
+          "hash": "e081a601c7fd5af41bd23b7a21927aef105a56aaf889cae8390e19253ed4d50d",
+          "size": 72666799,
+          "item_count": 4096,
+          "folders": {}
+        }
+      }
+    },
+    "Tiles": {
+      "hash": "fcf7e6d2df38df5db64b2ca5c899ebdf2e30ccb7354783c43f821b1348c40edf",
+      "size": 103425528,
+      "item_count": 5462,
+      "detail_file": "info.tiles.json",
+      "folders": {
+        "0": {
+          "hash": "305386488647c0d3dfa188e18f7512944c14f457ae8214e6bf73076654697b8b",
+          "size": 53163,
+          "item_count": 1,
+          "folders": {}
+        },
+        "1": {
+          "hash": "51abb44ad6148046d4ec038e86585a956c8746cac7867b1a4f9d109bf9fdf67c",
+          "size": 175573,
+          "item_count": 4,
+          "folders": {}
+        },
+        "2": {
+          "hash": "6b2fce28d41fcc0e546d430a63f626ef90f7eb42fbb284a13c692c02b3449dc2",
+          "size": 582842,
+          "item_count": 16,
+          "folders": {}
+        },
+        "3": {
+          "hash": "9199ab1ea05c12d7a579821fc6395f397204c229668b1f063bb7de7321b264ab",
+          "size": 2022375,
+          "item_count": 64,
+          "folders": {}
+        },
+        "4": {
+          "hash": "025282e6efac53d04a4f12f7db5800331a86c723f7262fd1dc8a5cc34e1541b5",
+          "size": 7178671,
+          "item_count": 256,
+          "folders": {}
+        },
+        "5": {
+          "hash": "d69e1190c350bd935208ca9392a035a47d07bfcd04adf4e386f12a91e35467e0",
+          "size": 24528185,
+          "item_count": 1024,
+          "folders": {}
+        },
+        "6": {
+          "hash": "19394edf0b733119446d49317b9d834ea54d70a9bf3206e2dd52097bad55b747",
+          "size": 68884650,
+          "item_count": 4096,
+          "folders": {}
+        }
+      }
+    },
+    "Tree Tiles": {
+      "hash": "800604d58a36598626f532bafef3f48e010bc046d2a85505fb3a364fb9ddd597",
+      "size": 95851299,
+      "item_count": 5461,
+      "detail_file": "info.tree.tiles.json",
+      "folders": {
+        "0": {
+          "hash": "cf1231028a880390f204e121bbc9b19bd6dcbb73709f0f3a0e7fdff7821fc903",
+          "size": 43945,
+          "item_count": 1,
+          "folders": {}
+        },
+        "1": {
+          "hash": "603cb1c5c0743cb656648cc8be79b34cf5f7cf3b5a7ea3752829536e1c3f0f69",
+          "size": 174777,
+          "item_count": 4,
+          "folders": {}
+        },
+        "2": {
+          "hash": "223666a283546a9b53407b8d93fc8d446447a9797ddffb3cd69d93e94920f8dc",
+          "size": 675034,
+          "item_count": 16,
+          "folders": {}
+        },
+        "3": {
+          "hash": "016143056ebc92187455193767a8a2c9d2c40fa16c3a2cf7cf41d56c799b19de",
+          "size": 2175247,
+          "item_count": 64,
+          "folders": {}
+        },
+        "4": {
+          "hash": "e44a47cd8b3ff57f79f3106183655a323366ad89cc1b35e16696b0d6486e4956",
+          "size": 6709636,
+          "item_count": 256,
+          "folders": {}
+        },
+        "5": {
+          "hash": "cbe75db0c262d5c6a36a0d7a786d76bd75f83a578e9d62235b92d968b677cf6a",
+          "size": 20549651,
+          "item_count": 1024,
+          "folders": {}
+        },
+        "6": {
+          "hash": "9173c1a00df9f00003a802590d03f507d0d178e449abeb73ac9ea2a4371945c2",
+          "size": 65523009,
+          "item_count": 4096,
+          "folders": {}
+        }
+      }
+    }
+  }
+}
