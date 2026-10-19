@@ -1,0 +1,162 @@
+# Regenerates the manifests (info.json + one info.<folder>.json per top-level folder)
+# whenever the tiles change
+# and publishes them on the TARGET_BRANCH, without touching any tile file.
+#
+# To configure it, edit the env: block below. If you change SOURCE_BRANCH you must
+# also change the branch name under on: push: - GitHub does not allow a variable there.
+
+name: Update info.json
+
+on:
+  push:
+    branches: [master]  # must be literal - keep in sync with SOURCE_BRANCH
+  workflow_dispatch:    # adds a "Run workflow" button on the Actions tab
+
+env:
+  SOURCE_BRANCH: master     # branch the tiles live on
+  TARGET_BRANCH: with-json  # branch the manifests are published to
+  # Manifest names: PREFIX.json is the folder level manifest (few KB), and
+  # PREFIX.<folder>.json holds each top-level folder's files (~550 KB each),
+  # e.g. info.tiles.json, info.sat.tiles.json.
+  MANIFEST_PREFIX: info
+  # Folder (relative to the repo root) the manifests are published into. It starts
+  # with "." so the generator skips it and the manifests never hash themselves.
+  MANIFEST_DIR: .info
+
+permissions:
+  contents: write
+
+concurrency: # only one run at a time, so two runs cannot race each other while pushing
+  group: info-json        
+  cancel-in-progress: false
+
+jobs:
+  info-json:
+    runs-on: ubuntu-latest
+    steps:
+      # Downloads the tiles. fetch-depth 1 grabs only the newest commit
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_BRANCH }}
+          fetch-depth: 1
+
+      # RUNNER_TEMP is a scratch folder outside the repo, so writing the new
+      # manifests there does not show up as a change to the checkout.
+      - name: Generate manifests
+        run: |
+          python3 .scripts/create_info_json.py --root . --out-dir "$RUNNER_TEMP/new" \
+            --prefix "$MANIFEST_PREFIX"
+
+      # Grabs the manifests that are already published, to compare against.
+      - name: Read published manifests
+        id: published
+        run: |
+          set -eu  # stop on the first error, and on any unset variable
+
+          mkdir -p "$RUNNER_TEMP/old"
+
+          # Work out where the published manifests currently live.
+          if [ "$TARGET_BRANCH" = "$SOURCE_BRANCH" ]; then
+            # Publishing onto the same branch, so they are in this checkout already.
+            ref=HEAD
+          elif git fetch --depth=1 origin "+refs/heads/$TARGET_BRANCH:refs/remotes/origin/$TARGET_BRANCH"; then
+            # The target branch exists. Remember its commit id - the push step
+            # needs it. Writing to GITHUB_OUTPUT passes a value to a later step.
+            ref="origin/$TARGET_BRANCH"
+            echo "target_sha=$(git rev-parse "$ref")" >> "$GITHUB_OUTPUT"
+          else
+            # The fetch failed, so the branch does not exist yet. Means this is first run.
+            echo "$TARGET_BRANCH does not exist yet"
+            ref=""
+          fi
+
+          # Copy every published manifest out of that branch. "git ls-tree" lists
+          # the files inside MANIFEST_DIR (nothing if it does not exist yet), and
+          # "git show branch:file" prints one file from a branch without checking
+          # the branch out. Manifests of folders that were removed or renamed are
+          # copied too, so their removal counts as a change.
+          if [ -n "$ref" ]; then
+            git ls-tree --name-only "$ref" -- "$MANIFEST_DIR/" | while read -r f; do
+              case "$(basename "$f")" in
+                "$MANIFEST_PREFIX.json"|"$MANIFEST_PREFIX".*.json)
+                  git show "$ref:$f" > "$RUNNER_TEMP/old/$(basename "$f")" ;;
+              esac
+            done
+          fi
+
+      # Decides whether anything is worth publishing. The compare script ignores
+      # the generated_at timestamp, otherwise every run would look different and
+      # the workflow would commit forever.
+      - name: Compare
+        id: compare
+        run: |
+          set -eu
+          # The script exits 0 when the folders match, 1 when they differ and
+          # 2 on an error, which must fail the run instead of publishing.
+          status=0
+          python3 .scripts/compare_info_json.py "$RUNNER_TEMP/old" "$RUNNER_TEMP/new" || status=$?
+          case $status in
+            0) echo "changed=false" >> "$GITHUB_OUTPUT" ;;
+            1) echo "changed=true" >> "$GITHUB_OUTPUT" ;;
+            *) exit "$status" ;;
+          esac
+
+      # Builds the commit by hand instead of "git add" + "git commit", so all
+      # of the tile files are never copied or rewritten. The commit reuses the
+      # source branch's tree as is and only adds the manifests in MANIFEST_DIR on top.
+      # Note: publishing onto master itself requires master to be unprotected.
+      - name: Commit and push
+        if: steps.compare.outputs.changed == 'true'  # skip the whole step when nothing changed
+        env:
+          TARGET_SHA: ${{ steps.published.outputs.target_sha }}  # empty if the branch is new
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -eu
+
+          # Build the file list for the new commit in a scratch index file, so the
+          # checkout's own index is left alone.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/index"
+          rm -f "$GIT_INDEX_FILE"
+
+          # Start from exactly what the source branch contains.
+          git read-tree HEAD
+
+          # Drop any manifest already in that list (only possible when publishing
+          # onto the source branch), so manifests of removed folders go away.
+          git ls-files -- "$MANIFEST_DIR/" | while read -r f; do
+            case "$(basename "$f")" in
+              "$MANIFEST_PREFIX.json"|"$MANIFEST_PREFIX".*.json)
+                git update-index --force-remove "$f" ;;
+            esac
+          done
+
+          # Store each new manifest in the repository and put it in the file list,
+          # inside MANIFEST_DIR.
+          # 100644 is git's code for a normal, non executable file.
+          for path in "$RUNNER_TEMP"/new/*.json; do
+            f=$(basename "$path")
+            blob=$(git hash-object -w "$path")
+            git update-index --add --cacheinfo "100644,$blob,$MANIFEST_DIR/$f"
+          done
+
+          # Freeze that file list into a tree, the snapshot a commit points at.
+          tree=$(git write-tree)
+          source_sha=$(git rev-parse HEAD)
+
+          # Pick the new commit's parents. Listing the target branch's current
+          # commit first makes the new commit a direct descendant of it, so the
+          # push is an ordinary fast forward and never needs --force.
+          if [ "$TARGET_BRANCH" != "$SOURCE_BRANCH" ] && [ -n "${TARGET_SHA:-}" ]; then
+            parents=(-p "$TARGET_SHA" -p "$source_sha")
+          else
+            # First run on a new branch, or publishing onto the source branch.
+            parents=(-p "$source_sha")
+          fi
+
+          # Create the commit and move the target branch to it. [skip ci] keeps
+          # this push from triggering the workflow again.
+          commit=$(git commit-tree "$tree" "${parents[@]}" -m "chore: update $MANIFEST_PREFIX manifests [skip ci]")
+          git push origin "$commit:refs/heads/$TARGET_BRANCH"
